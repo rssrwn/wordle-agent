@@ -4,8 +4,8 @@ from pathlib import Path
 
 WORD_LENGTH = 5
 MAX_ATTEMPTS = 6
-ANSWER_WORDS_PATH = "answer-words.txt"
-VALID_WORDS_PATH = "valid-words.txt"
+ANSWER_WORDS_PATH = "resources/answer-words.txt"
+VALID_WORDS_PATH = "resources/valid-words.txt"
 
 
 #******************************************************************************
@@ -57,11 +57,6 @@ class WordleCore:
         selected_idx = random.randint(0, len(self._answer_words))
         self._selected_word = self._answer_words[selected_idx]
         self._num_attempts = 0
-
-    def restart(self):
-        """Re-initialise the game state."""
-
-        self.start()
 
     def reset(self):
         """Reset the state of the class."""
