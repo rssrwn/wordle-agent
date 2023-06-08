@@ -1,13 +1,18 @@
 [tool.poetry]
 name = "wordlerl"
 version = "0.1.0"
-description = ""
-authors = ["Ross Irwin"]
+description = "An RL agent to play Wordle"
+authors = [
+    "Ross Irwin <rssrwn@gmail.com>"
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.1"
 
 [build-system]
 requires = ["poetry-core"]
