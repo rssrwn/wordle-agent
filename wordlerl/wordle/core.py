@@ -1,11 +1,6 @@
 import random
-from pathlib import Path
 
-
-WORD_LENGTH = 5
-MAX_ATTEMPTS = 6
-ANSWER_WORDS_PATH = "resources/answer-words.txt"
-VALID_WORDS_PATH = "resources/valid-words.txt"
+import wordlerl.wordle.util as util
 
 
 #******************************************************************************
@@ -25,7 +20,7 @@ class OutOfAttemptsError(Exception):
     """Run out of guessing attempts."""
     
     def __init__(self):
-        super().__init__(f"Maximum number of attempts is {MAX_ATTEMPTS}")
+        super().__init__(f"Maximum number of attempts is {util.MAX_ATTEMPTS}")
 
 
 #******************************************************************************
@@ -42,14 +37,18 @@ class WordleCore:
 
     def __init__(
         self,
-        answer_words_path=ANSWER_WORDS_PATH,
-        valid_words_path=VALID_WORDS_PATH
+        answer_words,
+        valid_words
     ):
-        self._answer_words = self._load_words(answer_words_path)
-        self._valid_words = set(self._load_words(valid_words_path))
+        self._answer_words = answer_words
+        self._valid_words = valid_words
 
         self._selected_word = None
         self._num_attempts = None
+
+    @property
+    def word(self):
+        return self._selected_word
 
     def start(self):
         """Initialise the game state."""
@@ -82,7 +81,7 @@ class WordleCore:
             InvalidWordError: The supplied guess is not in the list of valid words
         """
 
-        if self._num_attempts == MAX_ATTEMPTS:
+        if self._num_attempts == util.MAX_ATTEMPTS:
             raise OutOfAttemptsError()
 
         if type(guess) is not str:
@@ -138,8 +137,3 @@ class WordleCore:
         self._num_attempts += 1
 
         return feedback
-
-    def _load_words(self, words_path):
-        words_str = Path(words_path).read_text()
-        words = words_str.split("\n")
-        return words
